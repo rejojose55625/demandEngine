@@ -3,6 +3,13 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Folders
+.env/*
+.venv/*
+env/*
+venv/*
+retail_data/*
+
 # C extensions
 *.so
 
