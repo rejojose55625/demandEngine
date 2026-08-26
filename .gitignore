@@ -9,6 +9,7 @@ __pycache__/
 env/*
 venv/*
 retail_data/*
+data/*
 
 # C extensions
 *.so
