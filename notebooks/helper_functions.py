@@ -67,5 +67,8 @@ def plot_scatter_plot(
 
     return fig
 
+def normalize_score(series):
+    return ((series - series.min()) / (series.max() - series.min()) * 100).fillna(0)
+
 
 
