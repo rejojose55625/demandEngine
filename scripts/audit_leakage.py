@@ -10,7 +10,7 @@ Usage:
 import argparse
 import pandas as pd
 import numpy as np
-from datetime import datetimeimport datetime
+from datetime import datetime
 import os
 from pathlib import Path
 
@@ -72,4 +72,33 @@ class TargetLeakageAudit:
             self.log(f"\n✅️ PASS: Clean temporal split")
             self.log(f"Gap: {gap_days} days")
             return True
+
+    def check_outcome_dependent_features(self):
+        self.log("\n CHECK 2: Outcome-dependent features")
+        self.separator()
+
+        outcome_dependent = ['sales', 'sales_qty', 'lost_sales']
+        risky = []
+
+        for col in outcome_dependent:
+            if col in df.columns and col != self.target:
+                self.log(f"❌️ Found: {col}")
+                self.log(f"-> Depends on target: {self.target}")
+                self.log(f"Action: REMOVE")
+
+                risky.append(col)
+                self.remove_features.append(col)
+
+                self.critical_risks.append({
+                    'check': 'OUTCOME_DEPENDENT',
+                    'feature': col,
+                    'severity': 'CRITICAL',
+                    'message': f'{col} depends on {self.target}'
+                })
+
+        if not risky:
+            self.log("✅️ PASS: No outcome-dependent features found")
+            return True
+        else:
+            return False
 
