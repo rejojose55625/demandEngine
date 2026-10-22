@@ -71,4 +71,6 @@ def normalize_score(series):
     return ((series - series.min()) / (series.max() - series.min()) * 100).fillna(0)
 
 
+def separator():
+    print("="*70)
 
